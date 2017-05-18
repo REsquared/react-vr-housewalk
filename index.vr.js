@@ -7,15 +7,25 @@ import {
   View,
   VrButton
 } from 'react-vr';
+import {observable, toJS} from 'mobx';
+import {observer} from 'mobx-react';
 
-export default class react_vr_housewalk extends React.Component {
+import global_store from './lib/store.js';
+
+const App = 
+observer(class react_vr_housewalk extends React.Component {
   render() {
+    const {index, button_positions} = global_store;
+    console.log(button_positions[index]);
     return (
       <View>
         <Pano source={asset('chess-world.jpg')}/>
         <VrButton 
+          onClick={() => {
+            global_store.index = index ? 0 : 1
+          }}
           style={{
-            transform : [ {translate : [10, -10, -10]}, {rotateX: 90} ],
+            transform : [ {translate : toJS(button_positions[index])}, {rotateX: 90} ],
             borderRadius: 2.5,
             backgroundColor: 'black',
             height: 5,
@@ -26,6 +36,6 @@ export default class react_vr_housewalk extends React.Component {
       </View>
     );
   }
-};
+});;
 
-AppRegistry.registerComponent('react_vr_housewalk', () => react_vr_housewalk);
+AppRegistry.registerComponent('react_vr_housewalk', () => App);

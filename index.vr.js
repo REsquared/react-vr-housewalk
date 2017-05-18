@@ -5,6 +5,7 @@ import {
   Pano,
   Text,
   View,
+  VrButton
 } from 'react-vr';
 
 export default class react_vr_housewalk extends React.Component {
@@ -12,20 +13,16 @@ export default class react_vr_housewalk extends React.Component {
     return (
       <View>
         <Pano source={asset('chess-world.jpg')}/>
-        <Text
+        <VrButton 
           style={{
-            backgroundColor: '#777879',
-            fontSize: 0.8,
-            fontWeight: '400',
-            layoutOrigin: [0.5, 0.5],
-            paddingLeft: 0.2,
-            paddingRight: 0.2,
-            textAlign: 'center',
-            textAlignVertical: 'center',
-            transform: [{translate: [0, 0, -3]}],
-          }}>
-          hello
-        </Text>
+            transform : [ {translate : [10, -10, -10]}, {rotateX: 90} ],
+            borderRadius: 2.5,
+            backgroundColor: 'black',
+            height: 5,
+            width: 5
+          }}
+        >
+        </VrButton>
       </View>
     );
   }

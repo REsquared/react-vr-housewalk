@@ -24,7 +24,7 @@ observer(class react_vr_housewalk extends React.Component {
         <VrButton
           key={idx}
           onClick={(e) => {
-            const id = e.target - 6;
+            const id = e.target - 8;
             const new_position = button_positions[id];
             global_store.current_position = new_position;
           }}
@@ -39,10 +39,33 @@ observer(class react_vr_housewalk extends React.Component {
         >
         </VrButton>
       )
-    })
+    });
     return (
       <View>
-        <Pano source={asset(current_position.photo)}/>
+        <Pano
+          source={asset(current_position.photo)}
+          onLoad={() => global_store.loaded_pano = true}
+        />
+        {
+          !global_store.loaded_pano ? 
+          (
+            <Text
+              style={{
+                backgroundColor: '#777879',
+                fontSize: 0.8,
+                fontWeight: '400',
+                layoutOrigin: [0.5, 0.5],
+                paddingLeft: 0.2,
+                paddingRight: 0.2,
+                textAlign: 'center',
+                textAlignVertical: 'center',
+                transform: [{translate: [0, 0, -3]}],
+              }}>
+              Loading
+            </Text>
+          )
+          : null
+        }
         {renderPositions}
       </View>
     );

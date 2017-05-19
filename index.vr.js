@@ -15,24 +15,27 @@ import global_store from './lib/store.js';
 const App = 
 observer(class react_vr_housewalk extends React.Component {
   render() {
-    const {index, button_positions} = global_store;
-    console.log(button_positions[index]);
-    return (
-      <View>
-        <Pano source={asset('chess-world.jpg')}/>
-        <VrButton 
-          onClick={() => {
-            global_store.index = index ? 0 : 1
-          }}
+    const {index, button_positions, current_position} = global_store;
+    const renderPositions = button_positions.map((position, idx) => {
+      return (
+        <VrButton
+          key={idx}
           style={{
-            transform : [ {translate : toJS(button_positions[index])}, {rotateX: 90} ],
+            transform : [  {translate : toJS(position)}, {rotateX: 90} ],
             borderRadius: 2.5,
             backgroundColor: 'black',
             height: 5,
-            width: 5
+            width: 5,
+            position: 'absolute'
           }}
         >
         </VrButton>
+      )
+    })
+    return (
+      <View>
+        <Pano source={asset('chess-world.jpg')}/>
+        {renderPositions}
       </View>
     );
   }

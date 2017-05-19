@@ -17,9 +17,9 @@ observer(class react_vr_housewalk extends React.Component {
   render() {
     const {index, button_positions, current_position} = global_store;
     const renderPositions = button_positions.map((position, idx) => {
-      const pos = toJS(position);
-      pos[0] -= current_position[0];
-      pos[2] -= current_position[2];
+      const pos = toJS(position.pos);
+      pos[0] -= current_position.pos[0];
+      pos[2] -= current_position.pos[2];
       return (
         <VrButton
           key={idx}
@@ -42,7 +42,7 @@ observer(class react_vr_housewalk extends React.Component {
     })
     return (
       <View>
-        <Pano source={asset('chess-world.jpg')}/>
+        <Pano source={asset(current_position.photo)}/>
         {renderPositions}
       </View>
     );
